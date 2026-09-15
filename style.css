@@ -457,3 +457,82 @@ nav.main.scrolled {
 @media (max-width: 900px) {
   .hamburger { display: block; }
 }
+
+/* ---------- Sede subpage ---------- */
+.sede-hero {
+  padding: 46px 0 0;
+}
+.sede-hero .back-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--ink-soft); font-size: 14.5px; font-weight: 500; margin-bottom: 22px;
+}
+.sede-hero .back-link:hover { color: var(--navy); }
+.sede-hero h1 { font-size: clamp(2rem, 3.6vw, 2.9rem); max-width: 16ch; }
+.sede-hero .sede-tagline { margin-top: 14px; color: var(--ink-soft); font-size: 18px; max-width: 56ch; }
+
+.sede-banner {
+  margin-top: 36px; border-radius: 24px; overflow: hidden;
+  box-shadow: 0 24px 48px rgba(10,42,94,0.16);
+  max-height: 460px;
+}
+.sede-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 62%; display: block; }
+
+.sede-quickinfo {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--line);
+  border-radius: 18px; overflow: hidden;
+  margin-top: -46px; position: relative; z-index: 5;
+  max-width: 980px; margin-left: auto; margin-right: auto;
+  box-shadow: 0 18px 40px rgba(10,42,94,0.14);
+}
+.sede-quickinfo .qi {
+  background: #fff; padding: 22px 20px; text-align: center;
+}
+.sede-quickinfo .qi svg { width: 22px; height: 22px; stroke: var(--gold); margin-bottom: 10px; }
+.sede-quickinfo .qi b { display: block; color: var(--navy); font-family: 'Poppins'; font-size: 15px; margin-bottom: 3px; }
+.sede-quickinfo .qi span { font-size: 13px; color: var(--ink-soft); }
+
+@media (max-width: 820px) {
+  .sede-quickinfo { grid-template-columns: 1fr 1fr; margin-top: 24px; }
+}
+
+.sede-gallery-block { margin-top: 20px; }
+.sede-gallery-block .g-two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.sede-gallery-block .g-two img,
+.sede-gallery-block .g-one img {
+  width: 100%; height: 320px; object-fit: cover; border-radius: var(--radius);
+}
+.sede-gallery-block .g-one img { height: 380px; }
+.sede-gallery-block figcaption { margin-top: 12px; font-size: 14.5px; color: var(--ink-soft); }
+.sede-gallery-block figure { margin: 0; }
+
+@media (max-width: 700px) {
+  .sede-gallery-block .g-two { grid-template-columns: 1fr; }
+}
+
+.sede-map {
+  border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
+}
+.sede-map iframe { width: 100%; height: 340px; border: 0; display: block; }
+
+.sede-signage {
+  display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; align-items: center;
+  background: var(--navy); border-radius: 24px; padding: 44px; color: #fff;
+}
+.sede-signage img { border-radius: 16px; width: 100%; }
+.sede-signage h3 { color: #fff; font-size: 22px; margin-bottom: 12px; }
+.sede-signage p { color: #C7D3E8; font-size: 15.5px; margin: 0; }
+
+@media (max-width: 780px) {
+  .sede-signage { grid-template-columns: 1fr; padding: 30px; }
+}
+
+/* Sede plate link (from homepage cards to subpages) */
+.sede-plate { position: relative; padding-bottom: 62px; }
+.sede-link {
+  position: absolute; left: 32px; bottom: 28px;
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--navy); font-weight: 600; font-size: 14.5px;
+  transition: gap .2s ease, color .2s ease;
+}
+.sede-link:hover { gap: 10px; color: var(--gold); }

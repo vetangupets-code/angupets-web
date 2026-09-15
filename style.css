@@ -97,6 +97,7 @@ nav.main {
   position: sticky;
   top: 0;
   z-index: 50;
+  transition: box-shadow .25s ease, border-color .25s ease;
 }
 nav.main .wrap {
   display: flex;
@@ -361,7 +362,80 @@ footer { background: var(--navy-deep); color: #AEBBD3; padding-top: 60px; border
   .footer-grid { grid-template-columns: 1fr; }
 }
 
-/* Floating WhatsApp */
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.2,.65,.3,1), transform .7s cubic-bezier(.2,.65,.3,1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Hero entrance ---------- */
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-copy > * {
+  opacity: 0;
+  animation: heroIn .7s cubic-bezier(.2,.65,.3,1) forwards;
+}
+.hero-copy .eyebrow-badge { animation-delay: .05s; }
+.hero-copy h1              { animation-delay: .15s; }
+.hero-copy p.lead          { animation-delay: .28s; }
+.hero-copy .cta-row        { animation-delay: .40s; }
+.hero-copy .hero-stats     { animation-delay: .52s; }
+.hero-photo-band {
+  opacity: 0;
+  transform: translateY(24px) scale(.985);
+  animation: heroIn .8s cubic-bezier(.2,.65,.3,1) forwards;
+  animation-delay: .55s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .hero-copy > *, .hero-photo-band { opacity: 1 !important; transform: none !important; animation: none !important; }
+}
+
+/* ---------- Nav scroll state ---------- */
+nav.main.scrolled {
+  box-shadow: 0 6px 24px rgba(10,42,94,0.10);
+  border-bottom-color: transparent;
+}
+
+/* ---------- Hover polish ---------- */
+.btn { transition: transform .22s ease, background .22s ease, box-shadow .22s ease, border-color .22s ease; }
+.btn:hover { transform: translateY(-2px); }
+.btn-gold:hover { box-shadow: 0 10px 22px rgba(212,168,66,0.35); }
+.btn-outline:hover { box-shadow: 0 8px 18px rgba(10,42,94,0.08); }
+
+.service-row { transition: background .25s ease, transform .25s ease; }
+.service-row:hover { transform: translateX(4px); }
+.service-icon { transition: transform .3s ease; }
+.service-row:hover .service-icon { transform: scale(1.08) rotate(-3deg); }
+.service-arrow { transition: transform .25s ease, opacity .25s ease; }
+.service-row:hover .service-arrow { transform: translateX(4px); opacity: 0.7; }
+
+.sede-plate { transition: transform .3s ease, box-shadow .3s ease; }
+.sede-plate:hover { transform: translateY(-4px); box-shadow: 0 18px 34px rgba(10,42,94,0.12); }
+
+.gallery-grid img { transition: transform .5s ease; }
+.gallery-grid figure { overflow: hidden; border-radius: var(--radius); }
+.gallery-grid figure:hover img { transform: scale(1.04); }
+
+.testi-item { transition: transform .3s ease; }
+.testi-item:hover { transform: translateY(-3px); }
+
+/* ---------- WhatsApp pulse ---------- */
+.float-wa { animation: waPulse 2.6s ease-in-out infinite; }
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 8px 22px rgba(0,0,0,0.22), 0 0 0 0 rgba(37,211,102,0.45); }
+  50% { box-shadow: 0 8px 22px rgba(0,0,0,0.22), 0 0 0 10px rgba(37,211,102,0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-wa { animation: none; }
+}
 .float-wa {
   position: fixed; bottom: 24px; right: 24px; z-index: 60;
   width: 58px; height: 58px; border-radius: 50%;

@@ -56,13 +56,23 @@ document.querySelectorAll('.mobile-panel a').forEach(a => {
   }
 })();
 
-/* ---------- Nav shadow on scroll ---------- */
+/* ---------- Nav shadow + hide on scroll ---------- */
 (function () {
   var nav = document.querySelector('nav.main');
   if (!nav) return;
+  var lastScroll = window.pageYOffset;
+
   function onScroll() {
-    if (window.scrollY > 8) nav.classList.add('scrolled');
+    var current = window.pageYOffset;
+    if (current > 8) nav.classList.add('scrolled');
     else nav.classList.remove('scrolled');
+
+    if (current > lastScroll && current > 140) {
+      nav.classList.add('hide-nav');
+    } else {
+      nav.classList.remove('hide-nav');
+    }
+    lastScroll = current;
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();

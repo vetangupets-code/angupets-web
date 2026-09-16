@@ -173,6 +173,7 @@ nav.main .wrap {
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .nav-cta .btn-outline { display: none; }
+  .nav-cta .btn-gold { display: none; }
 }
 
 /* ---------- Hero ---------- */

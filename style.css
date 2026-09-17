@@ -1,17 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Kumbh+Sans:wght@400;500;600;700&display=swap');
-
-@font-face {
-  font-family: 'NeueMontreal';
-  src: url('assets/fonts/NeueMontreal-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'NeueMontreal';
-  src: url('assets/fonts/NeueMontreal-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700;800&display=swap');
 
 :root {
   --cream: #FBF9F4;
@@ -37,17 +24,19 @@ body {
   margin: 0;
   background: var(--cream);
   color: var(--ink);
-  font-family: 'NeueMontreal', 'Kumbh Sans', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 17px;
   line-height: 1.6;
 }
 
 h1, h2, h3, h4, .display {
-  font-family: 'Bagel Fat One', 'Kumbh Sans', sans-serif;
-  font-weight: 400;
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
   color: var(--navy);
   margin: 0;
-  line-height: 1.22;
+  line-height: 1.2;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -127,10 +116,10 @@ nav.main .wrap {
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand img { width: 44px; height: 44px; border-radius: 50%; }
 .brand .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
-.brand .brand-text strong { font-family: 'Bagel Fat One'; font-weight: 400; color: #fff; font-size: 18px; }
-.brand .brand-text span { font-size: 12px; color: var(--gold-pale); letter-spacing: 0.02em; font-family: 'Kumbh Sans'; }
+.brand .brand-text strong { font-family: 'Fraunces'; font-weight: 600; color: #fff; font-size: 19px; }
+.brand .brand-text span { font-size: 12px; color: var(--gold-pale); letter-spacing: 0.02em; font-family: 'Nunito'; }
 
-.nav-links { display: flex; gap: 30px; font-weight: 500; font-family: 'Kumbh Sans'; }
+.nav-links { display: flex; gap: 30px; font-weight: 500; font-family: 'Nunito'; }
 .nav-links a { position: relative; padding: 4px 0; color: #fff; }
 .nav-links a::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: -3px; height: 2px;
@@ -150,7 +139,7 @@ nav.main .wrap {
   display: inline-flex; align-items: center; gap: 12px;
   padding: 6px 6px 6px 22px; border-radius: 999px; border: none;
   font-weight: 500; font-size: 15px; white-space: nowrap;
-  font-family: 'Kumbh Sans', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 .btn::after {
   content: '';
@@ -391,9 +380,9 @@ footer { background: var(--gold); color: #fff; padding-top: 26px; }
 }
 .footer-brand { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
 .footer-brand img { width: 40px; height: 40px; border-radius: 50%; }
-.footer-brand strong { font-family: 'Bagel Fat One'; font-weight: 400; color: #fff; font-size: 17px; }
+.footer-brand strong { font-family: 'Fraunces'; font-weight: 600; color: #fff; font-size: 18px; }
 .footer-grid p.tag { font-size: 14.5px; max-width: 32ch; color: #B9C3DC; }
-.footer-col h5 { color: var(--gold-pale); font-family: 'Kumbh Sans'; font-weight: 700; font-size: 13.5px; margin-bottom: 16px; letter-spacing: 0.06em; text-transform: uppercase; }
+.footer-col h5 { color: var(--gold-pale); font-family: 'Nunito'; font-weight: 700; font-size: 13.5px; margin-bottom: 16px; letter-spacing: 0.06em; text-transform: uppercase; }
 .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: #B9C3DC; }
 .footer-col ul a:hover { color: var(--gold); }
 .footer-bottom-bar { background: #EDEDED; }

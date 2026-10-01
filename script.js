@@ -75,3 +75,58 @@ lastScroll = current;
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 })();
+
+/* ---------- GSAP ScrollTrigger: parallax de imágenes ---------- */
+(function () {
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduceMotion || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Contenedores con overflow:hidden donde la imagen puede "expandirse" (zoom-out)
+// suavemente a medida que el bloque entra y sale del viewport.
+var selectors = [
+'.hero-photo-band img',
+'.gallery-grid figure img',
+'.sede-banner img',
+'.sede-gallery-block figure img'
+];
+
+selectors.forEach(function (sel) {
+document.querySelectorAll(sel).forEach(function (img) {
+var container = img.closest('.hero-photo-band, figure, .sede-banner') || img.parentElement;
+
+gsap.fromTo(img,
+{ scale: 1.22, yPercent: -6 },
+{
+scale: 1,
+yPercent: 6,
+ease: 'none',
+scrollTrigger: {
+trigger: container,
+start: 'top bottom',
+end: 'bottom top',
+scrub: true
+}
+}
+);
+});
+});
+
+// El letrero de Sede Perdomo también recibe un parallax sutil.
+document.querySelectorAll('.sede-signage img').forEach(function (img) {
+gsap.fromTo(img,
+{ scale: 1.1 },
+{
+scale: 1,
+ease: 'none',
+scrollTrigger: {
+trigger: img.closest('.sede-signage'),
+start: 'top bottom',
+end: 'bottom top',
+scrub: true
+}
+}
+);
+});
+})();

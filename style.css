@@ -567,3 +567,20 @@ color: var(--navy); font-weight: 600; font-size: 14.5px;
 transition: gap .2s ease, color .2s ease;
 }
 .sede-link:hover { gap: 10px; color: var(--gold); }
+
+/* ---------- Parallax (GSAP ScrollTrigger) containment ---------- */
+.hero-photo-band,
+.sede-banner,
+.gallery-grid figure,
+.sede-gallery-block figure,
+.sede-signage {
+overflow: hidden;
+}
+.hero-photo-band img,
+.sede-banner img,
+.gallery-grid img,
+.sede-gallery-block .g-two img,
+.sede-gallery-block .g-one img,
+.sede-signage img {
+will-change: transform;
+}

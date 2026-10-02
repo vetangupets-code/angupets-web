@@ -100,112 +100,82 @@ window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 })();
 
-/* ---------- Ojos del perro: siguen el puntero (solo desktop) ---------- */
+/* ---------- Huellitas que siguen el puntero (solo desktop) ---------- */
 (function () {
-var wrap = document.getElementById('heroDogWrap');
-var pupilL = document.getElementById('dogPupilL');
-var pupilR = document.getElementById('dogPupilR');
-if (!wrap || !pupilL || !pupilR) return;
-
-var hero = wrap.closest('.hero');
 var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (reduceMotion || !canHover) return;
 
-var TIME_CONSTANT = 110; // ms, suavizado independiente de la tasa de refresco
-var maxOffset = 7; // px, recalculado según el tamaño real del perro
+var MIN_DIST = 46;      // px entre huellas
+var LIFETIME = 900;     // ms, duración del desvanecido
+var PAW_SIZE = 16;      // px
+var SIDE_OFFSET = 7;    // px, separación lateral tipo "caminata"
+var MAX_ACTIVE = 28;
 
-function recalcMaxOffset() {
-var rect = wrap.getBoundingClientRect();
-/* el radio disponible dentro del iris es pequeño: ~0.9% del ancho de la imagen */
-maxOffset = Math.max(2, Math.min(5, rect.width * 0.009));
-}
+var PAW_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">' +
+'<ellipse cx="12" cy="16.2" rx="6.1" ry="5.1"/>' +
+'<circle cx="5.6" cy="8.4" r="2.6"/>' +
+'<circle cx="10.2" cy="4.6" r="2.35"/>' +
+'<circle cx="14.1" cy="4.6" r="2.35"/>' +
+'<circle cx="18.4" cy="8.4" r="2.6"/>' +
+'</svg>';
 
-var target = { x: 0, y: 0 };
-var current = { x: 0, y: 0 };
-var rafId = null;
-var lastTime = null;
-var inViewport = true;
+var layer = document.createElement('div');
+layer.className = 'paw-trail-layer';
+layer.setAttribute('aria-hidden', 'true');
+document.body.appendChild(layer);
 
-function setPupils(x, y) {
-var ex = x.toFixed(2) + 'px';
-var ey = y.toFixed(2) + 'px';
-pupilL.style.setProperty('--ex', ex);
-pupilL.style.setProperty('--ey', ey);
-pupilR.style.setProperty('--ex', ex);
-pupilR.style.setProperty('--ey', ey);
-}
+var lastX = null, lastY = null, side = 1, active = 0;
 
-function step(time) {
-if (lastTime === null) lastTime = time;
-var dt = time - lastTime;
-lastTime = time;
+function spawnPaw(x, y, angleDeg) {
+if (active >= MAX_ACTIVE) return;
+var el = document.createElement('span');
+el.className = 'paw-print';
+el.innerHTML = PAW_SVG;
 
-var alpha = 1 - Math.exp(-dt / TIME_CONSTANT);
-current.x += (target.x - current.x) * alpha;
-current.y += (target.y - current.y) * alpha;
+var rad = (angleDeg + 90) * Math.PI / 180; /* perpendicular a la dirección */
+var ox = Math.cos(rad) * SIDE_OFFSET * side;
+var oy = Math.sin(rad) * SIDE_OFFSET * side;
+side *= -1;
 
-setPupils(current.x, current.y);
+el.style.left = (x + ox) + 'px';
+el.style.top = (y + oy) + 'px';
+el.style.width = PAW_SIZE + 'px';
+el.style.height = PAW_SIZE + 'px';
+/* la huella (SVG) apunta "hacia arriba" por defecto; +90 alinea los dedos con el avance */
+el.style.setProperty('--paw-rot', (angleDeg + 90) + 'deg');
 
-var settled = Math.abs(target.x - current.x) < 0.03 &&
-Math.abs(target.y - current.y) < 0.03;
+layer.appendChild(el);
+active++;
 
-if (!settled) {
-rafId = requestAnimationFrame(step);
-} else {
-rafId = null;
-lastTime = null;
-}
-}
+requestAnimationFrame(function () {
+requestAnimationFrame(function () {
+el.classList.add('paw-print--fade');
+});
+});
 
-function ensureLoop() {
-if (rafId === null && document.visibilityState === 'visible' && inViewport) {
-rafId = requestAnimationFrame(step);
-}
+window.setTimeout(function () {
+if (el.parentNode) el.parentNode.removeChild(el);
+active--;
+}, LIFETIME + 80);
 }
 
 function onPointerMove(e) {
-if (!hero) return;
-recalcMaxOffset();
-var rect = wrap.getBoundingClientRect();
-var cx = rect.left + rect.width / 2;
-var cy = rect.top + rect.height * 0.27; /* altura aprox. de los ojos */
-var nx = (e.clientX - cx) / (rect.width / 2);
-var ny = (e.clientY - cy) / (rect.height / 2);
-nx = Math.max(-1, Math.min(1, nx));
-ny = Math.max(-1, Math.min(1, ny));
+if (lastX === null) {
+lastX = e.clientX;
+lastY = e.clientY;
+return;
+}
+var dx = e.clientX - lastX;
+var dy = e.clientY - lastY;
+var dist = Math.sqrt(dx * dx + dy * dy);
+if (dist < MIN_DIST) return;
 
-target.x = nx * maxOffset;
-target.y = ny * maxOffset;
-ensureLoop();
+var angle = Math.atan2(dy, dx) * 180 / Math.PI;
+spawnPaw(e.clientX, e.clientY, angle);
+lastX = e.clientX;
+lastY = e.clientY;
 }
 
-function onPointerLeave() {
-target.x = 0;
-target.y = 0;
-ensureLoop();
-}
-
-if (canHover && !reduceMotion && hero) {
-recalcMaxOffset();
-hero.addEventListener('pointermove', onPointerMove);
-hero.addEventListener('pointerleave', onPointerLeave);
-window.addEventListener('resize', recalcMaxOffset, { passive: true });
-
-if ('IntersectionObserver' in window) {
-var io = new IntersectionObserver(function (entries) {
-entries.forEach(function (entry) {
-inViewport = entry.isIntersecting;
-if (inViewport) ensureLoop();
-});
-}, { threshold: 0 });
-io.observe(hero);
-}
-
-document.addEventListener('visibilitychange', function () {
-if (document.visibilityState === 'visible') ensureLoop();
-});
-} else if (!reduceMotion) {
-/* Táctil / sin mouse fino: una sola animación de bienvenida, solo en los ojos */
-wrap.classList.add('hero-dog-welcome');
-}
+document.addEventListener('pointermove', onPointerMove, { passive: true });
 })();

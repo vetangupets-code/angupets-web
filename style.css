@@ -290,48 +290,26 @@ position: relative; z-index: 1;
 width: 100%; height: 100%; object-fit: contain;
 }
 
-/* Ojos interactivos: la pupila se desplaza, la imagen base permanece fija */
-.hero-dog-eye {
-position: absolute;
-z-index: 2;
-width: 2.3%; height: 1.85%;
-transform: translate(-50%, -50%);
+/* Huellitas que siguen el puntero por toda la página */
+.paw-trail-layer {
+position: fixed;
+inset: 0;
 pointer-events: none;
+z-index: 9999;
 }
-.hero-dog-eye--l { left: 34.6%; top: 20.6%; }
-.hero-dog-eye--r { left: 65.2%; top: 21.3%; }
-.hero-dog-pupil {
-display: block;
-position: relative;
-width: 100%; height: 100%;
-border-radius: 50%;
-background: radial-gradient(circle at 32% 28%, #3c260f 0%, #150b03 60%, #000 100%);
-box-shadow: inset 0 0 0 1px rgba(0,0,0,0.3), 0 0 2.5px 1.5px rgba(28,15,5,0.55);
-transform: translate(var(--ex, 0px), var(--ey, 0px));
-will-change: transform;
+.paw-print {
+position: fixed;
+color: var(--navy);
+opacity: 0.5;
+transform: translate(-50%, -50%) rotate(var(--paw-rot, 0deg));
+transition: opacity 900ms ease, transform 900ms ease;
 }
-.hero-dog-pupil::after {
-content: '';
-position: absolute;
-width: 30%; height: 30%;
-top: 12%; left: 16%;
-background: rgba(255,255,255,0.7);
-border-radius: 50%;
-}
-
-/* Bienvenida táctil: solo los ojos, una única pasada, sin loop */
-.hero-dog-welcome .hero-dog-pupil {
-animation: heroEyeWelcome 2.4s ease-out 1 both;
-}
-@keyframes heroEyeWelcome {
-0%   { transform: translate(0,0); }
-30%  { transform: translate(2px, 0.6px); }
-55%  { transform: translate(-2px, 1px); }
-80%  { transform: translate(0.6px, -0.6px); }
-100% { transform: translate(0,0); }
+.paw-print--fade {
+opacity: 0;
+transform: translate(-50%, -50%) translateY(6px) scale(0.72) rotate(var(--paw-rot, 0deg));
 }
 @media (prefers-reduced-motion: reduce) {
-.hero-dog-welcome .hero-dog-pupil { animation: none; }
+.paw-trail-layer { display: none; }
 }
 
 @media (min-width: 768px) {

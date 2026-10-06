@@ -138,7 +138,6 @@
       var wrap = document.getElementById('heroDogWrap');
       if (wrap) {
         wrap.insertBefore(div('hw-moon'), wrap.firstChild);
-        wrap.appendChild(div('hw-hat', HAT));
       }
       /* Íconos de las burbujas */
       var icons = ['🦇', '🎃', '👻'];

@@ -187,7 +187,6 @@ html.halloween .about .hw-spider--section { right: 5%; }
 
 /* ---------- Secciones inferiores ---------- */
 html.halloween .section-kicker { color: var(--hw-orange-deep); }
-html.halloween .section-kicker::before { content: '🎃 '; }
 html.halloween .service-icon { background: var(--hw-blue); box-shadow: 0 0 0 2px var(--hw-edge), 0 0 0 3px rgba(255,138,31,.55); }
 html.halloween .service-icon svg { stroke: var(--hw-orange); }
 html.halloween .service-row:hover { background: rgba(255, 138, 31, 0.09); }

@@ -683,3 +683,172 @@ transition: gap .2s ease, color .2s ease;
 
 /* Ícono del menú móvil visible sobre el azul de la barra */
 nav.main .hamburger svg { stroke: #fff; }
+
+/* ---------- Servicios — tarjetas (rediseño) ---------- */
+.services-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 26px;
+margin-top: 6px;
+}
+.service-card {
+position: relative;
+display: flex;
+align-items: stretch;
+overflow: hidden;
+isolation: isolate;
+border-radius: 28px;
+min-height: 230px;
+background: linear-gradient(150deg, var(--navy) 0%, var(--navy-deep) 100%);
+color: #fff;
+text-decoration: none;
+box-shadow: 0 10px 28px rgba(16,36,68,0.16);
+transition: transform .25s ease, box-shadow .25s ease;
+}
+.service-card:hover { transform: translateY(-5px); box-shadow: 0 18px 38px rgba(16,36,68,0.26); }
+.service-card::before {
+content: "";
+position: absolute;
+z-index: 0;
+width: 230px; height: 230px;
+right: -70px; top: -70px;
+background: var(--gold);
+opacity: 0.16;
+border-radius: 42% 58% 55% 45% / 45% 42% 58% 55%;
+}
+.service-card .sc-media {
+position: relative;
+flex: 0 0 38%;
+overflow: hidden;
+}
+.service-card .sc-media img {
+position: absolute; inset: 0;
+width: 100%; height: 100%;
+object-fit: cover;
+object-position: center 18%;
+display: block;
+}
+.service-card .sc-media::after {
+content: "";
+position: absolute; inset: 0;
+background: linear-gradient(90deg, rgba(16,36,68,0) 55%, var(--navy-deep) 100%);
+}
+.service-card .sc-content {
+position: relative; z-index: 1;
+flex: 1;
+padding: 28px 28px 26px;
+display: flex; flex-direction: column; justify-content: center;
+min-width: 0;
+}
+.service-card .sc-icon {
+position: relative; z-index: 1;
+width: 44px; height: 44px;
+border-radius: 50%;
+background: var(--gold-pale);
+display: flex; align-items: center; justify-content: center;
+margin-bottom: 14px;
+}
+.service-card .sc-icon svg { width: 22px; height: 22px; stroke: var(--navy-deep); fill: none; stroke-width: 2; stroke-linecap: round; }
+.service-card h3 {
+position: relative; z-index: 1;
+color: #fff;
+font-size: 21px;
+margin-bottom: 8px;
+}
+.service-card p {
+position: relative; z-index: 1;
+color: rgba(255,255,255,0.8);
+font-size: 14.5px;
+margin: 0 0 18px;
+max-width: 36ch;
+}
+.service-card .sc-btn {
+position: relative; z-index: 1;
+display: inline-flex; align-items: center; gap: 10px;
+background: #fff; color: var(--navy-deep);
+font-weight: 700; font-size: 14px;
+font-family: 'Nunito Sans';
+padding: 9px 9px 9px 18px;
+border-radius: 999px;
+width: fit-content;
+transition: background .2s ease, gap .2s ease;
+}
+.service-card .sc-btn .sc-arrow {
+width: 26px; height: 26px; border-radius: 50%;
+background: var(--navy);
+display: flex; align-items: center; justify-content: center;
+transition: background .2s ease, transform .2s ease;
+}
+.service-card .sc-btn .sc-arrow svg { width: 13px; height: 13px; stroke: #fff; fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.service-card:hover .sc-btn .sc-arrow { background: var(--gold); transform: translateX(3px); }
+
+@media (max-width: 900px) {
+.services-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+.service-card { flex-direction: column; min-height: 0; }
+.service-card .sc-media { flex: none; height: 200px; }
+.service-card .sc-media::after { background: linear-gradient(0deg, var(--navy-deep) 0%, rgba(16,36,68,0) 35%); }
+.service-card .sc-content { padding: 20px 22px 24px; }
+.service-card p { max-width: 100%; }
+}
+
+/* ---------- Servicio — página dedicada ---------- */
+.service-hero-visual {
+width: 100%;
+height: 260px;
+border-radius: var(--radius);
+background: linear-gradient(150deg, var(--navy) 0%, var(--navy-deep) 100%);
+display: flex; align-items: center; justify-content: center;
+position: relative;
+overflow: hidden;
+}
+.service-hero-visual::before {
+content: "";
+position: absolute;
+width: 320px; height: 320px;
+left: -90px; bottom: -110px;
+background: var(--gold);
+opacity: 0.14;
+border-radius: 42% 58% 55% 45% / 45% 42% 58% 55%;
+}
+.service-hero-visual::after {
+content: "";
+position: absolute;
+width: 180px; height: 180px;
+right: -50px; top: -60px;
+background: var(--gold);
+opacity: 0.12;
+border-radius: 50%;
+}
+.service-hero-visual .shv-badge {
+position: relative; z-index: 1;
+width: 128px; height: 128px;
+border-radius: 50%;
+background: var(--gold-pale);
+display: flex; align-items: center; justify-content: center;
+box-shadow: 0 10px 30px rgba(16,36,68,0.28);
+}
+.service-hero-visual .shv-badge svg { width: 62px; height: 62px; stroke: var(--navy-deep); fill: none; stroke-width: 1.7; stroke-linecap: round; }
+
+.service-detail .section-head { max-width: 68ch; }
+.service-bullets { margin-top: 8px; }
+.sb-item {
+display: flex; gap: 18px;
+padding: 20px 0;
+border-top: 1px solid var(--line);
+}
+.sb-item:last-child { border-bottom: 1px solid var(--line); }
+.sb-item .sb-dot {
+flex: none;
+width: 10px; height: 10px; margin-top: 7px;
+border-radius: 50%;
+background: var(--gold);
+}
+.sb-item p { margin: 0; color: var(--ink-soft); font-size: 16.5px; max-width: 64ch; }
+
+@media (max-width: 640px) {
+.service-hero-visual { height: 200px; }
+.service-hero-visual .shv-badge { width: 96px; height: 96px; }
+.service-hero-visual .shv-badge svg { width: 46px; height: 46px; }
+}
